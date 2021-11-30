@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339424083526",
+    "project_id": "raf-travels",
+    "storage_bucket": "raf-travels.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339424083526:android:905e6a2e07794753f85447",
+        "android_client_info": {
+          "package_name": "com.example.raf_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339424083526-a9jbmfmvlc1b0olj5t2sp6oparbcbqdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM95xDacd3AkZBXAhRb3aJuEcCfgQyS_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339424083526-a9jbmfmvlc1b0olj5t2sp6oparbcbqdj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
