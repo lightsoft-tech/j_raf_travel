@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_travel_ui/screens/maps_screen.dart';
 // import 'package:flutter_travel_ui/screens/profil_screen.dart';
 import 'package:flutter_travel_ui/widgets/destination_carousel.dart';
 import 'package:flutter_travel_ui/widgets/hotel_carousel.dart';
@@ -25,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _selectedIndex = index;
         });
+        if (_selectedIndex == 2) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => MapsScreen()));
+        }
       },
       child: Container(
           height: 60.0,
