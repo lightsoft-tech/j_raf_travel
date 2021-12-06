@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_travel_ui/screens/maps_screen.dart';
 // import 'package:flutter_travel_ui/screens/profil_screen.dart';
 import 'package:flutter_travel_ui/widgets/destination_carousel.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  ScrollController _scrollController = ScrollController();
   // int _currentTab = 0;
 
   List<IconData> _icons = [
@@ -22,6 +24,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Icons.chat,
   ];
   List<String> name_icons = ['wisata', 'hotel', 'lokasi', 'chat'];
+
+  @override
+  void dispose() {
+    _scrollController.dispose(); // dispose the controller
+    super.dispose();
+  }
 
   void _launchWhatsapp() async {
     String number = '+6289667296633';
@@ -37,6 +45,26 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _selectedIndex = index;
         });
+        if (_selectedIndex == 0) {
+          if (_scrollController.hasClients) {
+            final position = _scrollController.position.minScrollExtent;
+            _scrollController.animateTo(
+              position,
+              duration: Duration(seconds: 1),
+              curve: Curves.easeOut,
+            );
+          }
+        }
+        if (_selectedIndex == 1) {
+          if (_scrollController.hasClients) {
+            final position = _scrollController.position.maxScrollExtent;
+            _scrollController.animateTo(
+              position,
+              duration: Duration(seconds: 1),
+              curve: Curves.easeOut,
+            );
+          }
+        }
         if (_selectedIndex == 2) {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => MapsScreen()));
@@ -81,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color(0xFFF3F5F7),
       body: SafeArea(
         child: ListView(
+          controller: _scrollController,
           padding: EdgeInsets.symmetric(vertical: 30.0),
           children: <Widget>[
             Padding(

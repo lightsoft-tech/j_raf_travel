@@ -93,9 +93,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseFirestore fFirestore = FirebaseFirestore.instance;
-    CollectionReference crUser = fFirestore.collection('users');
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: _isLoading
