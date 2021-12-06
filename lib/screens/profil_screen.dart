@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +18,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  User user = FirebaseAuth.instance.currentUser;
+  String uid;
+  String fullname;
+  String username;
+  String address;
+  String email;
+  String phoneNumber;
+  String password;
+  String about;
+
   showLogoutDialog(BuildContext context) {
     Widget cancelButton = FlatButton(
       child: Text("Tidak"),
@@ -43,6 +58,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return alert;
       },
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserData();
+  }
+
+  getUserData() async {
+    DocumentSnapshot getUserLog = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+    setState(() {
+      uid = user.uid;
+      fullname = getUserLog['fullname'];
+      username = getUserLog['username'];
+      address = getUserLog['address'];
+      email = getUserLog['email'];
+      phoneNumber = getUserLog['phone'];
+      password = getUserLog['password'];
+      about = getUserLog['about'];
+    });
   }
 
   @override
@@ -85,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 10,
                   ),
                   Text(
-                    'Rafly Rizqi Ramdhan',
+                    '${fullname}',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -118,37 +157,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Card(
                           child: Container(
-                            alignment: Alignment.topLeft,
-                            padding: EdgeInsets.all(15),
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
                             child: Column(
                               children: <Widget>[
                                 Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     ...ListTile.divideTiles(
                                       color: Colors.grey,
                                       tiles: [
                                         ListTile(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 12, vertical: 4),
                                           leading: Icon(Icons.my_location),
                                           title: Text("Location"),
-                                          subtitle: Text("Banyuwangi"),
+                                          subtitle: Text("${address}"),
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.email),
                                           title: Text("Email"),
-                                          subtitle: Text("Rafly@gmail.com"),
+                                          subtitle: Text("${email}"),
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.phone),
                                           title: Text("Phone"),
-                                          subtitle: Text("0812242187513"),
+                                          subtitle: Text("${phoneNumber}"),
                                         ),
                                         ListTile(
                                           leading: Icon(Icons.person),
                                           title: Text("About Me"),
-                                          subtitle: Text(
-                                              "Saya suka berpetualang ke alam luar."),
+                                          subtitle: Text("${about}"),
                                         ),
                                       ],
                                     ),

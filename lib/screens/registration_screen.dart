@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/common/theme_helper.dart';
@@ -28,8 +30,72 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController _phoneNumber = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
+  void setNull() {
+    setState(() {
+      _fullname.text = '';
+      _username.text = '';
+      _address.text = '';
+      _email.text = '';
+      _phoneNumber.text = '';
+      _password.text = '';
+    });
+  }
+
+  showDialogWrong(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("Oke"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Pesan"),
+      content: Text("Beberapa Salah / Tidak Valid !"),
+      actions: [
+        cancelButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showDialogEmpty(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("Oke"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Pesan"),
+      content: Text("Data Tidak Boleh Kosong !"),
+      actions: [
+        cancelButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore fFirestore = FirebaseFirestore.instance;
+    CollectionReference crUser = fFirestore.collection('users');
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: _isLoading
@@ -264,12 +330,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               _email.text,
                                               _phoneNumber.text,
                                               _password.text)
-                                          .then((user) {
+                                          .then((user) async {
+                                        User user =
+                                            FirebaseAuth.instance.currentUser;
                                         if (user != null) {
                                           setState(() {
                                             _isLoading = false;
                                           });
                                           print("Pesan : Berhasil Register");
+                                          await FirebaseFirestore.instance
+                                              .collection('users')
+                                              .doc(user.uid)
+                                              .set(({
+                                                'uid': user.uid,
+                                                'fullname': _fullname.text,
+                                                'username': _username.text,
+                                                'address': _address.text,
+                                                'email': _email.text,
+                                                'phone': _phoneNumber.text,
+                                                'password': _password.text,
+                                                'about':
+                                                    'Saya Suka Berpetualang',
+                                              }));
                                           Navigator.of(context)
                                               .pushAndRemoveUntil(
                                                   MaterialPageRoute(
@@ -283,6 +365,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           setState(() {
                                             _isLoading = false;
                                           });
+                                          showDialogWrong(context);
                                         }
                                       });
                                     } else {
@@ -290,6 +373,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                       setState(() {
                                         _isLoading = false;
                                       });
+                                      showDialogEmpty(context);
                                     }
                                     /* if (_formKey.currentState.validate()) {
                                       Navigator.of(context).pushAndRemoveUntil(

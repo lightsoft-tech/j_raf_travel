@@ -23,6 +23,56 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
+  showDialogWrong(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("Oke"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Pesan"),
+      content: Text("Email atau Password anda salah !"),
+      actions: [
+        cancelButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showDialogEmpty(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("Oke"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Pesan"),
+      content: Text("Email atau Password tidak boleh kosong !"),
+      actions: [
+        cancelButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,6 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 setState(() {
                                                   _isLoading = false;
                                                 });
+                                                showDialogWrong(context);
                                               }
                                             });
                                           } else {
@@ -172,6 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             setState(() {
                                               _isLoading = false;
                                             });
+                                            showDialogEmpty(context);
                                           }
                                           /* if (_formKey.currentState
                                               .validate()) {

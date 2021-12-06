@@ -4,6 +4,7 @@ import 'package:flutter_travel_ui/screens/maps_screen.dart';
 import 'package:flutter_travel_ui/widgets/destination_carousel.dart';
 import 'package:flutter_travel_ui/widgets/hotel_carousel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,12 +14,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   // int _currentTab = 0;
+
   List<IconData> _icons = [
     FontAwesomeIcons.umbrellaBeach,
     FontAwesomeIcons.hotel,
     FontAwesomeIcons.mapMarkedAlt,
+    Icons.chat,
   ];
-  List<String> name_icons = ['wisata', 'hotel', 'lokasi'];
+  List<String> name_icons = ['wisata', 'hotel', 'lokasi', 'chat'];
+
+  void _launchWhatsapp() async {
+    String number = '+6289667296633';
+    String message = 'Halo RAF TRAVEL... :D';
+    String url = "whatsapp://send?phone=$number&text=$message";
+
+    await canLaunch(url) ? launch(url) : print("Gagal Membuka Whatsapp");
+  }
 
   Widget _buildIcon(int index) {
     return GestureDetector(
@@ -29,6 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
         if (_selectedIndex == 2) {
           Navigator.push(
               context, MaterialPageRoute(builder: (_) => MapsScreen()));
+        }
+        if (_selectedIndex == 3) {
+          _launchWhatsapp();
         }
       },
       child: Container(
