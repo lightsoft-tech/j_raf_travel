@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_travel_ui/common/theme_color.dart';
+import 'package:flutter_travel_ui/screens/profil_edit_screen.dart';
 import 'package:flutter_travel_ui/services/methods.dart';
 import 'package:flutter_travel_ui/widgets/header_widget.dart';
 
@@ -197,6 +198,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         SizedBox(height: 15.0),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => ProfilEditScreen(),
+                              ),
+                            );
+                          },
+                          child: Card(
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            color: Colors.grey,
+                            shadowColor: greyInputBorderColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                side: BorderSide(
+                                  color: greyInputBorderColor,
+                                )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.symmetric(vertical: 15.0),
+                                  child: Text(
+                                    "Edit Profil",
+                                    style: blackTextStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
                         GestureDetector(
                           onTap: () {
                             showLogoutDialog(context);

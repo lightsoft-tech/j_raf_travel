@@ -133,42 +133,6 @@ class _HotelScreenState extends State<HotelScreen> {
                   ],
                 ),
               ),
-              /* Positioned(
-                left: 20.0,
-                bottom: 20.0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.hotel.address,
-                      style: TextStyle(
-                        color: Colors.white,
-                        backgroundColor: Colors.black26,
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.locationArrow,
-                          size: 15.0,
-                          color: Colors.white70,
-                        ),
-                        SizedBox(width: 5.0),
-                        Text(
-                          widget.hotel.address,
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ), */
             ],
           ),
           Expanded(

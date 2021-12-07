@@ -71,7 +71,36 @@ class _BookingScreenState extends State<BookingScreen> {
                                   e.data()['type'],
                                   e.data()['image'],
                                   onDelete: () {
-                                    crDestination.doc(e.id).delete();
+                                    Widget cancelButton = FlatButton(
+                                      child: Text("Tidak"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                    Widget continueButton = FlatButton(
+                                      child: Text("Ya"),
+                                      onPressed: () {
+                                        crDestination.doc(e.id).delete();
+                                      },
+                                    );
+
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Konfirmasi"),
+                                      content: Text(
+                                          "Anda yakin ingin menghapus list booking ?"),
+                                      actions: [
+                                        cancelButton,
+                                        continueButton,
+                                      ],
+                                    );
+
+                                    // show the dialog
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
                                   },
                                 ))
                           .toList(),
@@ -96,7 +125,36 @@ class _BookingScreenState extends State<BookingScreen> {
                                   e.data()['location'],
                                   e.data()['image'],
                                   onDelete: () {
-                                    crHotel.doc(e.id).delete();
+                                    Widget cancelButton = FlatButton(
+                                      child: Text("Tidak"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
+                                    Widget continueButton = FlatButton(
+                                      child: Text("Ya"),
+                                      onPressed: () {
+                                        crHotel.doc(e.id).delete();
+                                      },
+                                    );
+
+                                    AlertDialog alert = AlertDialog(
+                                      title: Text("Konfirmasi"),
+                                      content: Text(
+                                          "Anda yakin ingin menghapus list booking ?"),
+                                      actions: [
+                                        cancelButton,
+                                        continueButton,
+                                      ],
+                                    );
+
+                                    // show the dialog
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return alert;
+                                      },
+                                    );
                                   },
                                 ))
                           .toList(),
