@@ -25,6 +25,24 @@ Future<User> createAccount(String fullname, String username, String address,
   }
 }
 
+Future<User> updateAccount(String email, String password) async {
+  try {
+    User user = await FirebaseAuth.instance.currentUser;
+    user.updateEmail(email);
+    user.updatePassword(password);
+    if (user != null) {
+      print("Pesan : Berhasil Update Akun");
+      return user;
+    } else {
+      print("Pesan : Gagal Update Akun [Tidak Boleh Kosong]");
+      return user;
+    }
+  } catch (e) {
+    print("Error : ${e}");
+    return null;
+  }
+}
+
 Future<User> login(String email, String password) async {
   FirebaseAuth _auth = FirebaseAuth.instance;
   try {

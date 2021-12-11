@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_travel_ui/common/theme_helper.dart';
 import 'package:flutter_travel_ui/screens/navbar.dart';
+import 'package:flutter_travel_ui/services/methods.dart';
 import 'package:flutter_travel_ui/widgets/header_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -313,6 +314,8 @@ class _ProfilEditScreenState extends State<ProfilEditScreen> {
                                         'password': _password.text,
                                         'about': 'Saya Suka Berpetualang',
                                       });
+                                      updateAccount(
+                                          _email.text, _password.text);
                                       showDialogSuccess(context);
                                     } else {
                                       print("Pesan : Kolom Tidak Boleh Kosong");
